@@ -9,6 +9,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -19,8 +20,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Slf4j
 public class OverviewSteps extends AbstractSteps {
 
+    @Angenommen("der User {string} mit dem Passwort {string} ist angemeldet")
+    @Given("the user {string} with password {string} is logged in")
+    public void theUserIsLoggedIn(String username, String password) {
+        loginPage.setUsername(username);
+        loginPage.setPassword(password);
+        loginPage.clickSubmit();
+    }
+
     @Angenommen("der User {string} ist angemeldet")
-    @Given("the user {string} is logged in")
+    @Given("the user {string} with is logged in")
     public void theUserIsLoggedIn(String username) {
         loginPage.setUsername(username);
         loginPage.setPassword("geheim");
@@ -35,8 +44,10 @@ public class OverviewSteps extends AbstractSteps {
 
     @Dann("ist er abgemeldet")
     @Then("he is logged out of the application")
+    @SneakyThrows
     public void heIsLoggedOutOfTheApplication() {
-        assertThat(loginPage.getCaption()).contains("verehrter Kunde");
+        Thread.sleep(500);
+        assertThat(loginPage.getCaption()).contains("Willkommen in der Buggybank");
     }
 
     @Then("the following accounts are shown")
@@ -61,9 +72,14 @@ public class OverviewSteps extends AbstractSteps {
     @DataTableType
     public Account accountEntryTransformer(Map<String, String> entry) {
         return new Account(
+                entry.get("Name"),
                 entry.get("Kontonummer"),
                 entry.get("Waehrung"),
                 entry.get("Betrag"));
     }
 
+    @Angenommen("der User schickt einen POST request an {string} mit")
+    public void derUserSchicktEinenPOSTRequestAnMit(String endpoint, String body) {
+        log.info("Der Endpoint lautet {} und der Body {}", endpoint, body);
+    }
 }

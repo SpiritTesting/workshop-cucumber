@@ -11,9 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 public class Account {
 
-    // | Kontonummer | Waehrung | Betrag   |
-    // | 21020002    | EUR      | 0.0      |
+    // | Name      | Kontonummer | Waehrung | Betrag |
+    // | Girokonto | 100000001   | EUR      | 500,00 |
 
+    private String name;
     private String accountNumber;
     private String currency;
     private String amount;

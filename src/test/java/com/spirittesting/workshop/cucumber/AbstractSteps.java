@@ -11,7 +11,7 @@ public abstract class AbstractSteps {
     protected static MainPage mainPage = null;
 
     protected AbstractSteps() {
-        driver.get("http://buggybank-1.spirit-indianer.com");
+        driver.get("http://buggybank.spirit-cloud.com");
     }
 
     protected void closeApplication() {

@@ -1,6 +1,7 @@
 package com.spirittesting.workshop.cucumber;
 
 import io.cucumber.java.de.Und;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -48,11 +49,14 @@ public class LoginSteps extends AbstractSteps {
 		assertThat(loginPage.getPasswordValue()).isNullOrEmpty();
 	}
 
-	@SneakyThrows
-	@Then("the main screen is not shown")
-	public void the_main_screen_is_not_shown() {
-		Thread.sleep(500);
-		assertThat(loginPage.getCaption()).contains("verehrter Kunde");
+	@Then("the input fields are not cleared")
+	public void theInputFieldsAreNotCleared() {
+		assertThat(loginPage.getUsernameValue()).isNotBlank();
+		assertThat(loginPage.getPasswordValue()).isNotBlank();
 	}
 
+	@And("the login error message is shown")
+	public void theLoginErrorMessageIsShown() {
+		assertThat(loginPage.isErrorMessageShown()).isTrue();
+	}
 }

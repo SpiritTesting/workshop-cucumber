@@ -1,21 +1,23 @@
 package com.spirittesting.workshop.selenium;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class LoginPage extends PageObject {
 
     @FindBy(css = "h1")
     WebElement caption;
-    @FindBy(id = "anmeldung.name")
+    @FindBy(id = "anmelden.username")
     WebElement inputName;
-    @FindBy(id = "anmeldung.passwort")
+    @FindBy(id = "anmelden.passwort")
     WebElement inputPasswort;
-    @FindBy(id = "anmeldung.aktion.submit")
+    @FindBy(id = "anmelden.aktion.submit")
     WebElement submitButton;
 
     public LoginPage(WebDriver driver) {
@@ -44,5 +46,9 @@ public class LoginPage extends PageObject {
 
     public String getCaption() {
         return caption.getText();
+    }
+
+    public boolean isErrorMessageShown() {
+        return wait.until(visibilityOfElementLocated(By.id("anmelden.fehler.nachricht"))).isDisplayed();
     }
 }

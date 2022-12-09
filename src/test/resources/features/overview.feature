@@ -1,20 +1,25 @@
 #language: de
-@Smoke
+@Smoke @Login @Security
 Funktionalität: die Übersichtsseite enthält eine Liste von Konten
 
-  Szenario: Der Nutzer kann sich ausloggen
-    Angenommen der User "tester2-2" ist angemeldet
+  Szenariogrundriss: Der Nutzer kann sich ausloggen
+    Angenommen der User "<username>" mit dem Passwort "<passwort>" ist angemeldet
     Wenn er den Abmelden Knopf drückt
     Dann ist er abgemeldet
 
+    Beispiele:
+      | username | passwort |
+      | hallo    | geheim   |
+      | welt     | geheim   |
+
+
   Szenario: Der Nutzer sieht seine eigenen Konten
-    Angenommen der User "tester2-2" ist angemeldet
+    Angenommen der User "tester2-2" mit dem Passwort "geheim" ist angemeldet
     Dann sieht er die folgenden Konten
-      | Kontonummer | Waehrung | Betrag    |
-      | 21020002    | EUR      | 0,00      |
-      | 21020003    | EUR      | 0,00      |
-      | 21020001    | EUR      | 10.000,00 |
+      | Name      | Kontonummer | Waehrung | Betrag |
+      | Girokonto | 100000001   | EUR      | 500.00 |
     Und die Anwendung wird geschlossen
+
 
  # Scenario: the user has accounts
  # Given the user "tester2-2" is logged in
